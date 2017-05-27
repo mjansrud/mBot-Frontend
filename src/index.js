@@ -7,7 +7,7 @@ import Callback from './pages/Callback';
 import Disclaimer from './pages/Disclaimer';
 import About from './pages/About';
 import { Router, Route, browserHistory } from 'react-router';
-import { requireAuth, isLoggedIn, login} from './utils/AuthService';
+import { requireAuth } from './utils/AuthService';
 
 const Root = () => {
 

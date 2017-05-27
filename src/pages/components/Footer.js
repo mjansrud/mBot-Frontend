@@ -13,7 +13,7 @@ class Footer extends Component {
                 <Grid className="grid" fluid={fluid}>
                     <Row className="show-grid">
                         <Col sm={6} md={6}><div className="footer-text"> Developed by <a target="_blank" href="https://founder.no">Founder</a></div></Col>
-                        <Col sm={6} md={6}><div className="footer-text footer-text-right"><img className="exchange-image" src={"https://poloniex.com/images/media_kit/Poloniex-logo-800px.png"} /></div></Col>
+                        <Col sm={6} md={6}><div className="footer-text footer-text-right"><img className="exchange-image" role="presentation" src={"https://poloniex.com/images/media_kit/Poloniex-logo-800px.png"} /></div></Col>
                     </Row>
                 </Grid>
             </footer>

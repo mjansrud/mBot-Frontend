@@ -21,7 +21,7 @@ class Frontpage extends Component {
                         <Col sm={6} md={6} className="info-box-container">
                             <div className="info-box">
                                 <div className="info-box-image-container">
-                                    <img className="info-box-image" src={"https://www.google.com/intl/hi/analytics/images/feat-hed-mobile.png"} />
+                                    <img className="info-box-image" role="presentation" src={"https://www.google.com/intl/hi/analytics/images/feat-hed-mobile.png"} />
                                 </div>
                             </div>
                         </Col>
