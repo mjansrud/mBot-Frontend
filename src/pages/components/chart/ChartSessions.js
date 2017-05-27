@@ -20,12 +20,13 @@ class ChartSessions extends Component {
             expandRowBgColor: 'white'
         };
 
+        setInterval(() => {
+            this.getTicker();
+        }, 30000);
+
     }
 
     componentDidMount() {
-        setInterval(() => {
-            this.getTicker();
-        }, 5000);
         this.getTicker();
     }
 
@@ -114,15 +115,6 @@ class ChartSessions extends Component {
                 activeSessions.push(ticker);
             }
 
-            /*
-             let now = moment();
-             let updated = moment(ticker.updated);
-             ticker.started= moment(ticker.started).fromNow();
-             ticker.updated = moment(ticker.updated).fromNow();
-
-             if(moment.duration(now.diff(updated)).asSeconds() < 120) {
-             }
-            */
             return false;
         });
 

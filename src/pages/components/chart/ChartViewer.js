@@ -14,12 +14,12 @@ class ChartViewer extends Component {
             periods: []
         };
 
-    }
-
-    componentDidMount() {
         setInterval(() => {
             this.getPeriods();
         }, 5000);
+    }
+
+    componentDidMount() {
         this.getPeriods();
     }
 
@@ -53,7 +53,7 @@ class ChartViewer extends Component {
 
         return (
             <div className="chart-container loading">
-                Loading ...
+                Loading chart ...
             </div>
         )
 

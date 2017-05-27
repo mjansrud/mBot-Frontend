@@ -5,6 +5,9 @@ import {BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../assets/css/footer.css';
 import '../../assets/css/chart.css';
 
+import moment from 'moment';
+import 'moment/locale/nb';
+
 class Trades extends Component {
 
     constructor() {
@@ -14,66 +17,49 @@ class Trades extends Component {
             trades: []
         };
 
+        setInterval(() => {
+            this.getTrades();
+        }, 60000);
     }
 
     componentDidMount() {
-        setInterval(() => {
-            this.getTrades();
-        }, 5000);
         this.getTrades();
     }
 
     getTrades(){
-        getTradesData(this.props.pair).then(trades=>Object.values(trades)).then((trades) => {
+        console.log("Fetch trades" + this.props.pair);
+        getTradesData(this.props.pair, Math.round(new Date().getTime() / 1000) - (168 * 3600), 9999999999).then(trades=>Object.values(trades)).then((trades) => {
             this.setState({ trades: trades });
         });
     }
 
     render() {
         let trades = this.state.trades;
-
-        if(trades.length){
-            for (var i = 0; i < trades.length; i++) {
-                trades[i].date = new Date(trades[i].time);
-            }
-
-            trades.forEach((d, i) => {
-                d.date = new Date(trades[i].time);
-                d.open = +d.open;
-                d.high = +d.high;
-                d.low = +d.low;
-                d.close = +d.close;
-                d.volume = +d.volume;
-                //console.log(d);
-            });
-
-            let tradesData = [];
-
-            return (
-
-                <div className="trades">
-                    <h4 className="sub-title">Latest trades</h4>
-                    <hr/>
-                    <BootstrapTable
-                        data={tradesData}
-                        striped={true}
-                        hover={true}
-                    >
-                        <TableHeaderColumn dataField="time" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
-                        <TableHeaderColumn dataField="num_trades">Action</TableHeaderColumn>
-                        <TableHeaderColumn dataField="amount" dataSort={true} >Amount</TableHeaderColumn>
-                        <TableHeaderColumn dataField="price" dataSort={true} >Price</TableHeaderColumn>
-                        <TableHeaderColumn dataField="created" dataSort={true} >Time</TableHeaderColumn>
-                    </BootstrapTable>
-                </div>
-
-            )
+        for (var i = 0; i < trades.length; i++) {
+             trades[i].date = new Date(trades[i].date);
+             trades[i].time_readable = moment(trades[i].date).fromNow();
+             trades[i].rate = parseFloat(trades[i].rate).toFixed(2);
+             trades[i].amount = parseFloat(trades[i].amount).toFixed(5);
         }
 
         return (
-            <div className="chart-container loading">
-                Loading ...
+
+            <div className="trades">
+                <h4 className="sub-title">Trades latest week</h4>
+                <hr/>
+                <BootstrapTable
+                    data={trades}
+                    striped={true}
+                    hover={true}
+                >
+
+                    <TableHeaderColumn dataField="type" dataSort={true} isKey={true}>Type</TableHeaderColumn>
+                    <TableHeaderColumn dataField="amount" dataSort={true} >Amount</TableHeaderColumn>
+                    <TableHeaderColumn dataField="rate" dataSort={true} >Rate</TableHeaderColumn>
+                    <TableHeaderColumn dataField="time_readable" dataSort={true} >Time </TableHeaderColumn>
+                </BootstrapTable>
             </div>
+
         )
 
     }

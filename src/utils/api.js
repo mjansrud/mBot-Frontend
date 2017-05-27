@@ -15,7 +15,7 @@ function getChartData(pair, period, start, end) {
     return axios.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => response.data);
 }
 
-function getTradesData(pair) {
-    const url = `${BASE_URL}/api/trades/${pair}`;
+function getTradesData(pair, start, end) {
+    const url = `${BASE_URL}/api/trades/${pair}/${start}/${end}`;
     return axios.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => response.data);
 }
