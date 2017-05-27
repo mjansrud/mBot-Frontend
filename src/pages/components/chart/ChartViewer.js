@@ -23,6 +23,11 @@ class ChartViewer extends Component {
         this.getPeriods();
     }
 
+    shouldComponentUpdate() {
+        this.getPeriods();
+        return true;
+    }
+
     getPeriods(){
         getChartData(this.props.pair, 300, Math.round(new Date().getTime() / 1000) - (24 * 3600), 9999999999).then(periods=>Object.values(periods)).then((periods) => {
             this.setState({ periods: periods });

@@ -21,13 +21,16 @@ class Trades extends Component {
             this.getTrades();
         }, 60000);
     }
-
     componentDidMount() {
         this.getTrades();
     }
 
+    shouldComponentUpdate() {
+        this.getTrades();
+        return true;
+    }
+
     getTrades(){
-        console.log("Fetch trades" + this.props.pair);
         getTradesData(this.props.pair, Math.round(new Date().getTime() / 1000) - (168 * 3600), 9999999999).then(trades=>Object.values(trades)).then((trades) => {
             this.setState({ trades: trades });
         });

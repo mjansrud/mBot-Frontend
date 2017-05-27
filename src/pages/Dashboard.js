@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Grid, Row, Col} from "react-bootstrap";
 import Nav from './components/Nav';
 import Footer from './components/Footer';
-import ChartSessions from './components/chart/ChartSessions'
+import ChartPairs from './components/chart/ChartPairs'
 import Trades from './components/Trades'
 import ChartViewer from "./components/chart/ChartViewer";
 import Header from "./components/Header";
@@ -41,7 +41,7 @@ class Dashboard extends Component {
                         <Col sm={7} md={7}>
                             <ChartViewer pair={pair}/></Col>
                         <Col sm={5} md={5}>
-                            <ChartSessions pair={pair} onClick={this.changeHandler}/>
+                            <ChartPairs pair={pair} onClick={this.changeHandler}/>
                             <Trades pair={pair} onClick={this.changeHandler}/>
                         </Col>
                     </Row>

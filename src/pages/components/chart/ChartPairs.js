@@ -5,7 +5,7 @@ import {getTickerData} from '../../../utils/api';
 import '../../../assets/css/footer.css';
 import '../../../assets/css/table.css';
 
-class ChartSessions extends Component {
+class ChartPairs extends Component {
 
     constructor() {
         super()
@@ -28,6 +28,11 @@ class ChartSessions extends Component {
 
     componentDidMount() {
         this.getTicker();
+    }
+
+    shouldComponentUpdate() {
+        this.getTicker();
+        return true;
     }
 
     getTicker(){
@@ -156,10 +161,10 @@ class ChartSessions extends Component {
 
 }
 
-ChartSessions.propTypes = {
+ChartPairs.propTypes = {
     pair: React.PropTypes.string.isRequired,
     onClick: React.PropTypes.func.isRequired
 };
 
 
-export default ChartSessions;
+export default ChartPairs;
