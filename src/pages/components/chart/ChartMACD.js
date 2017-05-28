@@ -4,7 +4,7 @@ import { timeFormat } from "d3-time-format";
 
 import { ChartCanvas, Chart, series, scale, coordinates, tooltip, axes, indicator, helper } from "react-stockcharts";
 
-var { CandlestickSeries, BarSeries, LineSeries, AreaSeries, MACDSeries } = series;
+var { CandlestickSeries, BarSeries, LineSeries, AreaSeries, MACDSeries ,ScatterSeries, TriangleMarker} = series;
 var { discontinuousTimeScaleProvider } = scale;
 
 var { CrossHairCursor, MouseCoordinateX, MouseCoordinateY, CurrentCoordinate } = coordinates;
@@ -17,7 +17,7 @@ var { macd, ema, sma } = indicator;
 
 var { fitWidth } = helper;
 
-class CandleStickChartWithMACDIndicator extends React.Component {
+class ChartMACD extends React.Component {
     render() {
         var { data, type, width, ratio } = this.props;
 
@@ -51,8 +51,12 @@ class CandleStickChartWithMACDIndicator extends React.Component {
             <ChartCanvas ratio={ratio} width={width} height={600}
                          margin={{ left: 70, right: 70, top: 20, bottom: 30 }} type={type}
                          seriesName="MSFT"
-                         data={data} calculator={[ema26, ema12, smaVolume50, macdCalculator]}
-                         xAccessor={d => d.date} xScaleProvider={discontinuousTimeScaleProvider}>
+                         zoomEvent={false}
+                         panEvent={false}
+                         data={data}
+                         calculator={[ema26, ema12, smaVolume50, macdCalculator]}
+                         xAccessor={d => d.date}
+                         xScaleProvider={discontinuousTimeScaleProvider}>
                 <Chart id={1} height={400}
                        yExtents={[d => [d.high, d.low], ema26.accessor(), ema12.accessor()]}
                        padding={{ top: 10, bottom: 20 }}>
@@ -77,6 +81,15 @@ class CandleStickChartWithMACDIndicator extends React.Component {
                     <OHLCTooltip origin={[-40, 0]}/>
                     <MovingAverageTooltip onClick={(e) => console.log(e)} origin={[-38, 15]}
                                           calculators={[ema26, ema12]}/>
+
+                    <LineSeries
+                        yAccessor={d => d.close}
+                        stroke="#2ca02c" />
+                    <ScatterSeries
+                        yAccessor={d => d.close}
+                        marker={TriangleMarker}
+                        markerProps={{ width: 8, stroke: "#2ca02c", fill: "#2ca02c" }} />
+
                 </Chart>
                 <Chart id={2} height={150}
                        yExtents={[d => d.volume, smaVolume50.accessor()]}
@@ -100,7 +113,7 @@ class CandleStickChartWithMACDIndicator extends React.Component {
                     <MouseCoordinateX
                         at="bottom"
                         orient="bottom"
-                        displayFormat={timeFormat("%Y-%m-%d")} />
+                        displayFormat={timeFormat("%m/%d %H:%M")} />
                     <MouseCoordinateY
                         at="right"
                         orient="right"
@@ -115,18 +128,18 @@ class CandleStickChartWithMACDIndicator extends React.Component {
     }
 };
 
-CandleStickChartWithMACDIndicator.propTypes = {
+ChartMACD.propTypes = {
     data: React.PropTypes.array.isRequired,
     width: React.PropTypes.number.isRequired,
     ratio: React.PropTypes.number.isRequired,
     type: React.PropTypes.oneOf(["svg", "hybrid"]).isRequired,
 };
 
-CandleStickChartWithMACDIndicator.defaultProps = {
+ChartMACD.defaultProps = {
     type: "svg",
 };
 
 
-CandleStickChartWithMACDIndicator = fitWidth(CandleStickChartWithMACDIndicator);
+ChartMACD = fitWidth(ChartMACD);
 
-export default CandleStickChartWithMACDIndicator;
+export default ChartMACD;

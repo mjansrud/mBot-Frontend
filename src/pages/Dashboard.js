@@ -7,7 +7,7 @@ import Trades from './components/Trades'
 import ChartViewer from "./components/chart/ChartViewer";
 import Header from "./components/Header";
 import '../assets/css/app.css';
-import '../assets/css/frontpage.css';
+import '../assets/css/dashboard.css';
 import 'moment/locale/nb';
 
 class Dashboard extends Component {
@@ -18,7 +18,7 @@ class Dashboard extends Component {
         this.state = {
             pair: 'USDT_BTC'
         };
-        
+
         this.changeHandler = this.changeHandler.bind(this);
 
     }
@@ -38,11 +38,12 @@ class Dashboard extends Component {
                 <Header title={pair} />
                 <Grid className="grid" fluid={fluid}>
                     <Row className="show-grid">
-                        <Col sm={7} md={7}>
-                            <ChartViewer pair={pair}/></Col>
-                        <Col sm={5} md={5}>
-                            <ChartPairs pair={pair} onClick={this.changeHandler}/>
+                        <Col sm={8} md={8}>
+                            <ChartViewer pair={pair}/>
                             <Trades pair={pair} onClick={this.changeHandler}/>
+                        </Col>
+                        <Col sm={4} md={4}>
+                            <ChartPairs pair={pair} onClick={this.changeHandler}/>
                         </Col>
                     </Row>
                 </Grid>

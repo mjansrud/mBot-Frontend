@@ -7,6 +7,8 @@ import '../../../assets/css/table.css';
 
 class ChartPairs extends Component {
 
+    interval;
+
     constructor() {
         super()
 
@@ -24,7 +26,7 @@ class ChartPairs extends Component {
 
     componentDidMount() {
         this.getTicker();
-        setInterval(() => {
+        this.interval = setInterval(() => {
             this.getTicker();
         }, 60000);
     }
@@ -33,6 +35,10 @@ class ChartPairs extends Component {
         getTickerData().then((tickers) => {
             this.setState({ tickers: tickers });
         });
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.interval);
     }
 
     onRowSelect(row) {

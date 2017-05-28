@@ -10,41 +10,66 @@ import 'moment/locale/nb';
 
 class Trades extends Component {
 
+    interval;
+
     constructor() {
         super()
 
         this.state = {
             trades: [],
-            pair: 'USDT_BTC'
+            pair: 'all',
+            initiated: false
         };
 
     }
     componentDidMount() {
-        setInterval(() => {
-            this.getTrades();
+        this.getTrades(this.state.pair);
+        this.interval = setInterval(() => {
+            this.getTrades(this.state.pair);
         }, 60000);
     }
 
     componentWillReceiveProps(props) {
-        if (props.pair !== this.state.pair) {
-            this.setState({ pair: props.pair });
-            this.getTrades();
+        if(this.state.initiated){
+            this.getTrades(props.pair);
         }
     }
 
-    getTrades(){
-        getTradesData(this.state.pair, Math.round(new Date().getTime() / 1000) - (168 * 3600), 9999999999).then(trades=>Object.values(trades)).then((trades) => {
-            this.setState({ trades: trades });
+    compnentWillUnmount(){
+        clearInterval(this.interval);
+    }
+
+    getTrades(pair){
+        getTradesData(pair, Math.round(new Date().getTime() / 1000) - (168 * 3600), 9999999999).then(trades=>Object.entries(trades)).then((trades) => {
+            this.setState({ pair: pair, trades: trades, initiated: true });
         });
     }
 
     render() {
-        let trades = this.state.trades;
-        for (var i = 0; i < trades.length; i++) {
-             trades[i].date = new Date(trades[i].date);
-             trades[i].time_readable = moment(trades[i].date).fromNow();
-             trades[i].rate = parseFloat(trades[i].rate).toFixed(2);
-             trades[i].amount = parseFloat(trades[i].amount).toFixed(5);
+        let tradesCollection = this.state.trades;
+        let tradesList = [];
+
+        // Transfer the collection into an array with objects
+        for (var i = 0; i < tradesCollection.length; i++) {
+            if(this.state.pair === 'all'){
+                for (var j = 0; j < tradesCollection[i][1].length; j++) {
+                    var tradeAll = tradesCollection[i][1][j];
+                    tradeAll.pair = tradesCollection[i][0];
+                    tradeAll.date = new Date(tradesCollection[i][1][j].date);
+                    tradeAll.time_readable = moment(tradesCollection[i][1][j].date).fromNow();
+                    tradeAll.rate = parseFloat(tradesCollection[i][1][j].rate).toFixed(2);
+                    tradeAll.amount = parseFloat(tradesCollection[i][1][j].amount).toFixed(5);
+                    tradesList.push(tradeAll);
+                }
+            }else{
+                var tradePair = tradesCollection[i][1];
+                tradePair.pair = this.state.pair;
+                tradePair.date = new Date(tradePair.date);
+                tradePair.time_readable = moment(tradePair.date).fromNow();
+                tradePair.rate = parseFloat(tradePair.rate).toFixed(2);
+                tradePair.amount = parseFloat(tradePair.amount).toFixed(5);
+                tradesList.push(tradePair);
+            }
         }
 
         return (
@@ -53,12 +78,14 @@ class Trades extends Component {
                 <h4 className="sub-title">Trades latest week</h4>
                 <hr/>
                 <BootstrapTable
-                    data={trades}
+                    data={tradesList}
                     striped={true}
                     hover={true}
+                    pagination
                 >
 
-                    <TableHeaderColumn dataField="type" dataSort={true} isKey={true}>Type</TableHeaderColumn>
+                    <TableHeaderColumn dataField="pair" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
+                    <TableHeaderColumn dataField="type" dataSort={true}>Type</TableHeaderColumn>
                     <TableHeaderColumn dataField="amount" dataSort={true} >Amount</TableHeaderColumn>
                     <TableHeaderColumn dataField="rate" dataSort={true} >Rate</TableHeaderColumn>
                     <TableHeaderColumn dataField="time_readable" dataSort={true} >Time </TableHeaderColumn>
