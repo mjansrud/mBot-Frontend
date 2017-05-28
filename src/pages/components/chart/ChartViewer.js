@@ -11,25 +11,29 @@ class ChartViewer extends Component {
         super()
 
         this.state = {
-            periods: []
+            periods: [],
+            pair: 'USDT_BTC'
         };
-
-        setInterval(() => {
-            this.getPeriods();
-        }, 5000);
     }
 
     componentDidMount() {
+
         this.getPeriods();
+        setInterval(() => {
+            this.getPeriods();
+        }, 120000);
+
     }
 
-    shouldComponentUpdate() {
-        this.getPeriods();
-        return true;
+    componentWillReceiveProps(props) {
+        if (props.pair !== this.state.pair) {
+            this.setState({ pair: props.pair });
+            this.getPeriods();
+        }
     }
 
     getPeriods(){
-        getChartData(this.props.pair, 300, Math.round(new Date().getTime() / 1000) - (24 * 3600), 9999999999).then(periods=>Object.values(periods)).then((periods) => {
+        getChartData(this.state.pair, 300, Math.round(new Date().getTime() / 1000) - (24 * 3600), 9999999999).then(periods=>Object.values(periods)).then((periods) => {
             this.setState({ periods: periods });
         });
     }
@@ -46,7 +50,6 @@ class ChartViewer extends Component {
                 d.low = +d.low;
                 d.close = +d.close;
                 d.volume = +d.volume;
-                //console.log(d);
             });
 
             return (

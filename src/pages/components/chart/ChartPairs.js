@@ -20,19 +20,13 @@ class ChartPairs extends Component {
             expandRowBgColor: 'white'
         };
 
-        setInterval(() => {
-            this.getTicker();
-        }, 30000);
-
     }
 
     componentDidMount() {
         this.getTicker();
-    }
-
-    shouldComponentUpdate() {
-        this.getTicker();
-        return true;
+        setInterval(() => {
+            this.getTicker();
+        }, 60000);
     }
 
     getTicker(){

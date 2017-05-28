@@ -14,24 +14,26 @@ class Trades extends Component {
         super()
 
         this.state = {
-            trades: []
+            trades: [],
+            pair: 'USDT_BTC'
         };
 
+    }
+    componentDidMount() {
         setInterval(() => {
             this.getTrades();
         }, 60000);
     }
-    componentDidMount() {
-        this.getTrades();
-    }
 
-    shouldComponentUpdate() {
-        this.getTrades();
-        return true;
+    componentWillReceiveProps(props) {
+        if (props.pair !== this.state.pair) {
+            this.setState({ pair: props.pair });
+            this.getTrades();
+        }
     }
 
     getTrades(){
-        getTradesData(this.props.pair, Math.round(new Date().getTime() / 1000) - (168 * 3600), 9999999999).then(trades=>Object.values(trades)).then((trades) => {
+        getTradesData(this.state.pair, Math.round(new Date().getTime() / 1000) - (168 * 3600), 9999999999).then(trades=>Object.values(trades)).then((trades) => {
             this.setState({ trades: trades });
         });
     }
