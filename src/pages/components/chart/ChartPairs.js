@@ -127,7 +127,6 @@ class ChartPairs extends Component {
             mode: 'radio',
             bgColor: '#ffccc6',
             onSelect: function(row) {
-                console.log(session.props.pair);
                 session.props.onClick(row.pair);
             },
 

@@ -2,10 +2,12 @@ import React from "react";
 import { format } from "d3-format";
 import { timeFormat } from "d3-time-format";
 
-import { ChartCanvas, Chart, series, scale, coordinates, tooltip, axes, indicator, helper } from "react-stockcharts";
+import { ChartCanvas, Chart, series, scale, algorithm, annotation, coordinates, tooltip, axes, indicator, helper } from "react-stockcharts";
 
-var { CandlestickSeries, BarSeries, LineSeries, AreaSeries, MACDSeries ,ScatterSeries, TriangleMarker} = series;
+var { CandlestickSeries, BarSeries, LineSeries, AreaSeries, MACDSeries} = series;
 var { discontinuousTimeScaleProvider } = scale;
+
+var { Annotate, LabelAnnotation } = annotation;
 
 var { CrossHairCursor, MouseCoordinateX, MouseCoordinateY, CurrentCoordinate } = coordinates;
 var { EdgeIndicator } = coordinates;
@@ -14,6 +16,8 @@ var { OHLCTooltip, MovingAverageTooltip, MACDTooltip } = tooltip;
 
 var { XAxis, YAxis } = axes;
 var { macd, ema, sma } = indicator;
+
+var algo = algorithm.default;
 
 var { fitWidth } = helper;
 
@@ -47,6 +51,50 @@ class ChartMACD extends React.Component {
             .merge((d, c) => {d.smaVolume50 = c;})
             .accessor(d => d.smaVolume50);
 
+        var buySell = algo()
+            .windowSize(2)
+            .accumulator(([prev, now]) => {
+                let buy = false;
+                let sell = false;
+                now.trades.forEach((trade, i) => {
+                    if (trade.date > prev.date && trade.date <= now.date){
+                        if(trade.type === 'buy') buy = true;
+                        if(trade.type === 'sell') sell = true;
+                    }
+                });
+                if(buy){
+                    return "BUY";
+                }else if(sell){
+                    return "SELL";
+                }
+
+            })
+            .merge((d, c) => {d.longShort = c})
+
+        var defaultAnnotationProps = {
+            fontFamily: "Glyphicons Halflings",
+            fontSize: 20,
+            opacity: 0.8,
+            onClick: console.log.bind(console),
+        }
+
+        var buyAnnotationProps = {
+            ...defaultAnnotationProps,
+            fill: "#006517",
+            text: "\ue093",
+            y: ({ yScale, datum }) => yScale(datum.low) + 20,
+            tooltip: "Buy",
+        };
+
+        var sellAnnotationProps = {
+            ...defaultAnnotationProps,
+            fill: "#E20000",
+            text: "\ue094",
+            y: ({ yScale, datum }) => yScale(datum.high) - 20,
+            tooltip: "Sell",
+        };
+
+
         return (
             <ChartCanvas ratio={ratio} width={width} height={600}
                          margin={{ left: 70, right: 70, top: 20, bottom: 30 }} type={type}
@@ -54,7 +102,7 @@ class ChartMACD extends React.Component {
                          zoomEvent={false}
                          panEvent={false}
                          data={data}
-                         calculator={[ema26, ema12, smaVolume50, macdCalculator]}
+                         calculator={[ema26, ema12, smaVolume50, macdCalculator, buySell]}
                          xAccessor={d => d.date}
                          xScaleProvider={discontinuousTimeScaleProvider}>
                 <Chart id={1} height={400}
@@ -82,16 +130,13 @@ class ChartMACD extends React.Component {
                     <MovingAverageTooltip onClick={(e) => console.log(e)} origin={[-38, 15]}
                                           calculators={[ema26, ema12]}/>
 
-                    <LineSeries
-                        yAccessor={d => d.close}
-                        stroke="#2ca02c" />
-                    <ScatterSeries
-                        yAccessor={d => d.close}
-                        marker={TriangleMarker}
-                        markerProps={{ width: 8, stroke: "#2ca02c", fill: "#2ca02c" }} />
+                    <Annotate with={LabelAnnotation} when={d => d.longShort === "BUY"}
+                              usingProps={buyAnnotationProps} />
+                    <Annotate with={LabelAnnotation} when={d => d.longShort === "SELL"}
+                              usingProps={sellAnnotationProps} />
 
                 </Chart>
-                <Chart id={2} height={150}
+                <Chart id={3} height={150}
                        yExtents={[d => d.volume, smaVolume50.accessor()]}
                        origin={(w, h) => [0, h - 300]}>
                     <YAxis axisAt="left" orient="left" ticks={5} tickFormat={format(".0s")}/>
@@ -101,10 +146,10 @@ class ChartMACD extends React.Component {
                         orient="left"
                         displayFormat={format(".4s")} />
 
-                    <BarSeries yAccessor={d => d.volume} fill={d => d.close > d.open ? "#6BA583" : "#FF0000"} />
-                    <AreaSeries yAccessor={smaVolume50.accessor()} stroke={smaVolume50.stroke()} fill={smaVolume50.fill()}/>
+                    <BarSeries yAccessor={d => d.volume} fill="#d7d7d7" />
+                    <AreaSeries yAccessor={smaVolume50.accessor()} stroke="#8ef4ab" fill="#a5ffbe"/>
                 </Chart>
-                <Chart id={3} height={150}
+                <Chart id={4} height={150}
                        yExtents={macdCalculator.accessor()}
                        origin={(w, h) => [0, h - 150]} padding={{ top: 10, bottom: 10 }} >
                     <XAxis axisAt="bottom" orient="bottom"/>

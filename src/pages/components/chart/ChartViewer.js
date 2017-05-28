@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {getChartData} from '../../../utils/api';
+import {getChartData, getTradesData} from '../../../utils/api';
 import ChartMACD from './ChartMACD';
 import ChartRSI from './ChartRSI';
 
@@ -17,52 +17,51 @@ class ChartViewer extends Component {
 
         this.state = {
             periods: [],
-            pair: 'USDT_BTC'
+            trades: [],
+            pair: 'USDT_BTC',
+            initiated: false
         };
     }
 
     componentDidMount() {
 
-        this.getPeriods();
+        this.getPeriods(this.state.pair);
         this.interval = setInterval(() => {
-            this.getPeriods();
+            this.getPeriods(this.state.pair);
         }, 120000);
 
     }
 
     componentWillUnmount(){
         clearInterval(this.interval);
+
     }
 
     componentWillReceiveProps(props) {
-        if (props.pair !== this.state.pair) {
-            this.setState({ pair: props.pair });
-            this.getPeriods();
+        if(this.state.initiated) {
+            this.getPeriods(props.pair);
         }
     }
 
-    getPeriods(){
-        getChartData(this.state.pair, 300, Math.round(new Date().getTime() / 1000) - (24 * 3600), 9999999999).then(periods=>Object.values(periods)).then((periods) => {
-            this.setState({ periods: periods });
-        });
-    }
-
-    /*
-    getPeriods(){
-        let from =  Math.round(new Date().getTime() / 1000) - (24 * 3600);
-        let to = 9999999999;
-        getChartData(this.state.pair, 300, from, to).then(periods=>Object.values(periods)).then((periods) => {
-            getTradesData(this.state.pair, from, to).then(trades=>Object.entries(trades)).then((trades) => {
-                this.setState({ trades: trades, periods: periods });
+    getPeriods(pair){
+        let start = Math.round(new Date().getTime() / 1000) - (24 * 3600);
+        let end = 9999999999
+        getChartData(pair,900, start, end).then(periods=>Object.values(periods)).then((periods) => {
+            getTradesData(pair, start, end).then(trades=>Object.values(trades)).then((trades) => {
+                this.setState({ periods: periods, trades: trades, initiated: true});
             });
         });
     }
-    */
 
     render() {
         let periods = this.state.periods;
+        let trades = this.state.trades;
 
         if(periods.length){
+
+            trades.forEach((d, i) => {
+                d.date = new Date(d.date);
+            });
 
             periods.forEach((d, i) => {
                 d.date = new Date(d.date * 1000);
@@ -71,7 +70,7 @@ class ChartViewer extends Component {
                 d.low = +d.low;
                 d.close = +d.close;
                 d.volume = +d.volume;
-                //console.log(d);
+                d.trades = trades;
             });
 
             return (

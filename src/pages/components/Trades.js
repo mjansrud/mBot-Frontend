@@ -59,6 +59,7 @@ class Trades extends Component {
                     tradeAll.time_readable = moment(tradesCollection[i][1][j].date).fromNow();
                     tradeAll.rate = parseFloat(tradesCollection[i][1][j].rate).toFixed(2);
                     tradeAll.amount = parseFloat(tradesCollection[i][1][j].amount).toFixed(5);
+                    tradeAll.trade = tradesList;
                     tradesList.push(tradeAll);
                 }
             }else{
@@ -68,6 +69,7 @@ class Trades extends Component {
                 tradePair.time_readable = moment(tradePair.date).fromNow();
                 tradePair.rate = parseFloat(tradePair.rate).toFixed(2);
                 tradePair.amount = parseFloat(tradePair.amount).toFixed(5);
+                tradePair.trade = tradesList;
                 tradesList.push(tradePair);
             }
         }
