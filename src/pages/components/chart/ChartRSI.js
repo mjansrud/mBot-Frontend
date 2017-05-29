@@ -78,7 +78,7 @@ class ChartRSI extends React.Component {
                     <MouseCoordinateX
                         at="bottom"
                         orient="bottom"
-                        displayFormat={timeFormat("%m/%d %H:%M")}  />
+                        displayFormat={timeFormat("%d/%m %H:%M")}  />
                     <MouseCoordinateY
                         at="right"
                         orient="right"
