@@ -5,7 +5,7 @@ import { getAccessToken } from './AuthService';
 var env = process.env.REACT_APP_ENVIRONMENT || 'development';
 
 //Constants
-const BASE_URL = (env === 'production') ? process.env.REACT_APP_PRODUCTION_URL_API : process.env.process.env.REACT_APP_DEVELOPMENT_URL_API;
+const BASE_URL = (env === 'production') ? process.env.REACT_APP_PRODUCTION_URL_API : process.env.REACT_APP_DEVELOPMENT_URL_API;
 
 export {getTickerData, getChartData, getTradesData};
 
