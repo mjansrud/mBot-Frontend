@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Tabs, Tab} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {getTickerData} from '../../../utils/api';
 
@@ -105,7 +106,11 @@ class ChartPairs extends Component {
     render() {
 
         let tickers = this.state.tickers;
-        let activeSessions = [];
+        let btcTickers = [];
+        let ethTickers = [];
+        let xmrTickers = [];
+        let usdtTickers = [];
+
         let session = this;
 
         Object.entries(tickers).map((entries) => {
@@ -117,7 +122,22 @@ class ChartPairs extends Component {
 
             //Only fetch main currencies
             if(ticker.pair.substring(0, 4) === "USDT"){
-                activeSessions.push(ticker);
+                usdtTickers.push(ticker);
+            }
+
+            switch(ticker.pair.substring(0, 3)){
+                case "BTC":
+                    btcTickers.push(ticker);
+                    break;
+                case "ETH":
+                    ethTickers.push(ticker);
+                    break;
+                case "XMR":
+                    xmrTickers.push(ticker);
+                    break;
+                default:
+                        break;
+
             }
 
             return false;
@@ -136,24 +156,96 @@ class ChartPairs extends Component {
 
         return (
             <div>
-                <BootstrapTable
-                    data={activeSessions}
-                    options={ this.options }
-                    expandableRow={ this.isExpandableRow }
-                    expandComponent={ this.expandComponent }
-                    trClassName='tickers-table-tr'
-                    expandColumnOptions={ {
-                        expandColumnVisible: true,
-                        expandColumnComponent: this.expandColumnComponent
-                    } }
-                    striped={true}
-                    hover={true}
-                    selectRow={ selectRowProp }
-                >
-                    <TableHeaderColumn dataField="pair" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
-                    <TableHeaderColumn dataField="change" dataSort={true} >Change</TableHeaderColumn>
-                    <TableHeaderColumn dataField="price" dataSort={true} >Price</TableHeaderColumn>
-                </BootstrapTable>
+                <Tabs defaultActiveKey={4} animation={false} id="ticksTabs">
+                    <Tab eventKey={1} title="BTC" tabClassName="tickers-tab">
+                        <BootstrapTable
+                            data={btcTickers}
+                            options={ this.options }
+                            expandableRow={ this.isExpandableRow }
+                            expandComponent={ this.expandComponent }
+                            trClassName='tickers-table-tr'
+                            tableContainerClass='tickers-table-body'
+                            expandColumnOptions={ {
+                                expandColumnVisible: true,
+                                expandColumnComponent: this.expandColumnComponent
+                            } }
+                            striped={true}
+                            hover={true}
+                            selectRow={ selectRowProp }
+                            pagination
+                        >
+                            <TableHeaderColumn dataField="pair" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
+                            <TableHeaderColumn dataField="change" dataSort={true} >Change</TableHeaderColumn>
+                            <TableHeaderColumn dataField="price" dataSort={true} >Price</TableHeaderColumn>
+                        </BootstrapTable>
+                    </Tab>
+                    <Tab eventKey={2} title="ETH" tabClassName="tickers-tab">
+                        <BootstrapTable
+                            data={ethTickers}
+                            options={ this.options }
+                            expandableRow={ this.isExpandableRow }
+                            expandComponent={ this.expandComponent }
+                            trClassName='tickers-table-tr'
+                            tableContainerClass='tickers-table-body'
+                            expandColumnOptions={ {
+                                expandColumnVisible: true,
+                                expandColumnComponent: this.expandColumnComponent
+                            } }
+                            striped={true}
+                            hover={true}
+                            selectRow={ selectRowProp }
+                            pagination
+                        >
+                            <TableHeaderColumn dataField="pair" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
+                            <TableHeaderColumn dataField="change" dataSort={true} >Change</TableHeaderColumn>
+                            <TableHeaderColumn dataField="price" dataSort={true} >Price</TableHeaderColumn>
+                        </BootstrapTable>
+                    </Tab>
+                    <Tab eventKey={3} title="XMR" tabClassName="tickers-tab">
+                        <BootstrapTable
+                            data={xmrTickers}
+                            options={ this.options }
+                            expandableRow={ this.isExpandableRow }
+                            expandComponent={ this.expandComponent }
+                            trClassName='tickers-table-tr'
+                            tableContainerClass='tickers-table-body'
+                            expandColumnOptions={ {
+                                expandColumnVisible: true,
+                                expandColumnComponent: this.expandColumnComponent
+                            } }
+                            striped={true}
+                            hover={true}
+                            selectRow={ selectRowProp }
+                            pagination
+                        >
+                            <TableHeaderColumn dataField="pair" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
+                            <TableHeaderColumn dataField="change" dataSort={true} >Change</TableHeaderColumn>
+                            <TableHeaderColumn dataField="price" dataSort={true} >Price</TableHeaderColumn>
+                        </BootstrapTable>
+                    </Tab>
+                    <Tab eventKey={4} title="USDT" tabClassName="tickers-tab">
+                        <BootstrapTable
+                            data={usdtTickers}
+                            options={ this.options }
+                            expandableRow={ this.isExpandableRow }
+                            expandComponent={ this.expandComponent }
+                            trClassName='tickers-table-tr'
+                            tableContainerClass='tickers-table-body'
+                            expandColumnOptions={ {
+                                expandColumnVisible: true,
+                                expandColumnComponent: this.expandColumnComponent
+                            } }
+                            striped={true}
+                            hover={true}
+                            selectRow={ selectRowProp }
+                            pagination
+                        >
+                            <TableHeaderColumn dataField="pair" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
+                            <TableHeaderColumn dataField="change" dataSort={true} >Change</TableHeaderColumn>
+                            <TableHeaderColumn dataField="price" dataSort={true} >Price</TableHeaderColumn>
+                        </BootstrapTable>
+                    </Tab>
+                </Tabs>
             </div>
         )
     }

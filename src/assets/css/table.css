@@ -1,9 +1,9 @@
-.sessions-table{
+.tickers-table{
     padding-bottom:50px;
 
 }
 
-.sessions-table-row {
+.tickers-table-row {
     min-width:100%;
     padding:20px;
 }
@@ -12,22 +12,30 @@ input[type="radio"] {
     cursor: pointer;
 }
 
-.sessions-table-tr {
+.tickers-table-tr {
     background:white;
 }
 
-.sessions-table-tr .table>tbody>tr>td{
-    padding:2px;
-    padding-left:8px;
+.tickers-table-body .table>thead>tr>th{
+    border:0px !important;
 }
 
+.table-bordered>thead>tr>th .
+
+.tickers-table-body {
+    border-radius: 0px 5px 5px 5px;
+}
+
+.tickers-tab{
+    /* border-bottom: 1px solid gray;*/
+}
 
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
     padding:4px !important;
     padding-left:8px !important;
 }
 
-.sessions-table-tr-header {
+.tickers-table-tr-header {
     background:white;
     text-align: center;
     font-size:14px;
@@ -36,4 +44,8 @@ input[type="radio"] {
 
 .loading{
     text-align: center;
+}
+
+.nav-tabs {
+    border-bottom: 0px !important;
 }
