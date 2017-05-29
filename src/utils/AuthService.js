@@ -9,7 +9,7 @@ var env = process.env.REACT_APP_ENVIRONMENT || 'development';
 
 const CLIENT_ID = process.env.REACT_APP_AUTH_CLIENT_ID;
 const CLIENT_DOMAIN = process.env.REACT_APP_AUTH_URL;
-const REDIRECT = (env == 'production')  ? process.env.REACT_APP_PRODUCTION_URL + '/callback' : process.env.REACT_APP_DEVELOPMENT_URL + '/callback';
+const REDIRECT = (env === 'production')  ? process.env.REACT_APP_PRODUCTION_URL + '/callback' : process.env.REACT_APP_DEVELOPMENT_URL + '/callback';
 const SCOPE = process.env.REACT_APP_AUTH_SCOPE;
 const AUDIENCE = process.env.REACT_APP_AUTH_AUDIENE;
 
