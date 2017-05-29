@@ -88,7 +88,7 @@ class ChartPairs extends Component {
                         <PairsTab data={xmrTickers} selected={selectedName} onClick={this.props.onClick}/>
                     </Tab>
                     <Tab eventKey={4} title="USDT" tabClassName="tickers-tab">
-                        <PairsTab data={ethTickers} selected={selectedName} onClick={this.props.onClick}/>
+                        <PairsTab data={usdtTickers} selected={selectedName} onClick={this.props.onClick}/>
                     </Tab>
                 </Tabs>
             </div>
