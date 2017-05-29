@@ -26,40 +26,35 @@ class PairsTab extends Component {
 
     expandComponent(row) {
 
-        if(row.options){
+        let expandData = [];
 
-            let expandData = [];
+        Object.keys(row).map((key, value) => {
+            let object = [];
+            var name =
+            object["name"] = key.charAt(0).toUpperCase() + key.slice(1);
+            object["value"] = row[key];
+            expandData.push(object)
+            return false;
+        });
 
-            Object.keys(row.options).map((key, value) => {
-                let object = [];
-                object["name"] = key;
-                object["value"] = row.options[key];
-                expandData.push(object)
-                return false;
-            });
+        const cellEditProp = {
+            mode: 'click'
+        };
 
-            const cellEditProp = {
-                mode: 'click'
-            };
-
-            return (
-                <div className="tickers-table-tr">
-                    <div className="tickers-table-tr-header">
-                        Click to edit
-                    </div>
-                    <BootstrapTable
-                        data={expandData}
-                        trClassName='tickers-table-tr'
-                        striped={true}
-                        hover={true}
-                        cellEdit={ cellEditProp }
-                    >
-                        <TableHeaderColumn dataField="name" dataSort={true} isKey={true}>Name</TableHeaderColumn>
-                        <TableHeaderColumn dataField="value">Value</TableHeaderColumn>
-                    </BootstrapTable>
-                </div>
-            );
-        }
+        return (
+            <div className="tickers-table-tr">
+                <BootstrapTable
+                    data={expandData}
+                    trClassName='tickers-table-tr'
+                    striped={true}
+                    hover={true}
+                    cellEdit={ cellEditProp }
+                >
+                    <TableHeaderColumn dataField="name" dataSort={true} isKey={true}>Name</TableHeaderColumn>
+                    <TableHeaderColumn dataField="value">Value</TableHeaderColumn>
+                </BootstrapTable>
+            </div>
+        );
 
     }
 
