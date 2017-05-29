@@ -4,8 +4,6 @@ import ChartMACD from './ChartMACD';
 import ChartRSI from './ChartRSI';
 
 import 'moment/locale/nb';
-
-import '../../../assets/css/footer.css';
 import '../../../assets/css/chart.css';
 
 class ChartViewer extends Component {
@@ -44,7 +42,7 @@ class ChartViewer extends Component {
     }
 
     getPeriods(pair){
-        let start = Math.round(new Date().getTime() / 1000) - (24 * 3600);
+        let start = Math.round(new Date().getTime() / 1000) - (20 * 3600);
         let end = 9999999999
         getChartData(pair,900, start, end).then(periods=>Object.values(periods)).then((periods) => {
             getTradesData(pair, start, end).then(trades=>Object.values(trades)).then((trades) => {
