@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Nav from './components/Nav';
-import Footer from './components/Footer';
-import Header from "./components/Header";
+import Nav from './components/parts/Nav';
+import Footer from './components/parts/Footer';
+import Header from "./components/parts/Header";
 import '../assets/css/app.css';
 import '../assets/css/frontpage.css';
 import 'moment/locale/nb';

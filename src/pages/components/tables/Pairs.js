@@ -18,7 +18,7 @@ class ChartPairs extends Component {
         };
 
         this.options = {
-            defaultSortName: 'pair',
+            defaultSortName: 'name',
             defaultSortOrder: 'asc',
             expandRowBgColor: 'white'
         };
@@ -105,13 +105,14 @@ class ChartPairs extends Component {
 
     render() {
 
+        let session = this;
         let tickers = this.state.tickers;
+        let selectedName = session.props.pair.split("_").pop();
         let btcTickers = [];
         let ethTickers = [];
         let xmrTickers = [];
         let usdtTickers = [];
 
-        let session = this;
 
         Object.entries(tickers).map((entries) => {
 
@@ -119,13 +120,13 @@ class ChartPairs extends Component {
             ticker.pair = entries[0];
             ticker.price = parseFloat(ticker.last).toFixed(3);
             ticker.change = parseFloat(ticker.percentChange).toFixed(2);
+            ticker.prepair = ticker.pair.substring(0, ticker.pair.indexOf("_"));
+            ticker.name = ticker.pair.split("_").pop();
 
-            //Only fetch main currencies
-            if(ticker.pair.substring(0, 4) === "USDT"){
-                usdtTickers.push(ticker);
-            }
-
-            switch(ticker.pair.substring(0, 3)){
+            switch(ticker.prepair){
+                case "USDT":
+                    usdtTickers.push(ticker);
+                    break;
                 case "BTC":
                     btcTickers.push(ticker);
                     break;
@@ -151,7 +152,7 @@ class ChartPairs extends Component {
             },
 
             clickToExpand:true,
-            selected:[session.props.pair]
+            selected:[selectedName]
         };
 
         return (
@@ -174,7 +175,7 @@ class ChartPairs extends Component {
                             selectRow={ selectRowProp }
                             pagination
                         >
-                            <TableHeaderColumn dataField="pair" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
+                            <TableHeaderColumn dataField="name" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
                             <TableHeaderColumn dataField="change" dataSort={true} >Change</TableHeaderColumn>
                             <TableHeaderColumn dataField="price" dataSort={true} >Price</TableHeaderColumn>
                         </BootstrapTable>
@@ -196,7 +197,7 @@ class ChartPairs extends Component {
                             selectRow={ selectRowProp }
                             pagination
                         >
-                            <TableHeaderColumn dataField="pair" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
+                            <TableHeaderColumn dataField="name" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
                             <TableHeaderColumn dataField="change" dataSort={true} >Change</TableHeaderColumn>
                             <TableHeaderColumn dataField="price" dataSort={true} >Price</TableHeaderColumn>
                         </BootstrapTable>
@@ -218,7 +219,7 @@ class ChartPairs extends Component {
                             selectRow={ selectRowProp }
                             pagination
                         >
-                            <TableHeaderColumn dataField="pair" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
+                            <TableHeaderColumn dataField="name" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
                             <TableHeaderColumn dataField="change" dataSort={true} >Change</TableHeaderColumn>
                             <TableHeaderColumn dataField="price" dataSort={true} >Price</TableHeaderColumn>
                         </BootstrapTable>
@@ -240,7 +241,7 @@ class ChartPairs extends Component {
                             selectRow={ selectRowProp }
                             pagination
                         >
-                            <TableHeaderColumn dataField="pair" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
+                            <TableHeaderColumn dataField="name" dataSort={true} isKey={true}>Pair</TableHeaderColumn>
                             <TableHeaderColumn dataField="change" dataSort={true} >Change</TableHeaderColumn>
                             <TableHeaderColumn dataField="price" dataSort={true} >Price</TableHeaderColumn>
                         </BootstrapTable>

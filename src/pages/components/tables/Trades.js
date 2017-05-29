@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {getTradesData} from '../../utils/api';
+import {getTradesData} from '../../../utils/api';
 import {BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
-import '../../assets/css/footer.css';
-import '../../assets/css/chart.css';
+import '../../../assets/css/footer.css';
+import '../../../assets/css/chart.css';
 
 import moment from 'moment';
 import 'moment/locale/nb';

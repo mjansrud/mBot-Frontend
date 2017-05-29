@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import Nav from './components/Nav';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import Nav from './components/parts/Nav';
+import Footer from './components/parts/Footer';
+import Header from './components/parts/Header';
 
 class Settings extends Component {
 

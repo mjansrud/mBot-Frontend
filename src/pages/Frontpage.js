@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from "react-bootstrap";
-import Nav from './components/Nav';
-import Footer from './components/Footer';
+import Nav from './components/parts/Nav';
+import Footer from './components/parts/Footer';
 import '../assets/css/app.css';
 import '../assets/css/frontpage.css';
 import 'moment/locale/nb';
-import Header from "./components/Header";
+import Header from "./components/parts/Header";
 
 class Frontpage extends Component {
 

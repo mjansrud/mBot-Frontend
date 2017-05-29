@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from "react-bootstrap";
-import Nav from './components/Nav';
-import Footer from './components/Footer';
-import ChartPairs from './components/chart/ChartPairs'
-import Trades from './components/Trades'
+import Nav from './components/parts/Nav';
+import Footer from './components/parts/Footer';
+import ChartPairs from './components/tables/Pairs'
+import Trades from './components/tables/Trades'
 import ChartViewer from "./components/chart/ChartViewer";
-import Header from "./components/Header";
+import Header from "./components/parts/Header";
 import '../assets/css/app.css';
 import '../assets/css/dashboard.css';
 import 'moment/locale/nb';
