@@ -48,7 +48,7 @@ class ChartViewer extends Component {
         let end = 9999999999
         getChartData(pair,900, start, end).then(periods=>Object.values(periods)).then((periods) => {
             getTradesData(pair, start, end).then(trades=>Object.values(trades)).then((trades) => {
-                this.setState({ periods: periods, trades: trades, initiated: true});
+                this.setState({ pair: pair, periods: periods, trades: trades, initiated: true});
             });
         });
     }
