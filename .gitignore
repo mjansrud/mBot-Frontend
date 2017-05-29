@@ -48,6 +48,8 @@ typings/
 # Optional eslint cache
 .eslintcache
 
+.idea
+
 # Optional REPL history
 .node_repl_history
 
@@ -59,5 +61,6 @@ typings/
 
 # dotenv environment variables file
 .env
+.
 
 
