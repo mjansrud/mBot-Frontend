@@ -4,9 +4,12 @@ import auth0 from 'auth0-js';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
+//Compile for spesific environment
+var env = process.env.REACT_APP_ENVIRONMENT || 'development';
+
 const CLIENT_ID = process.env.REACT_APP_AUTH_CLIENT_ID;
 const CLIENT_DOMAIN = process.env.REACT_APP_AUTH_URL;
-const REDIRECT = process.env.REACT_APP_URL + '/callback';
+const REDIRECT = (env == 'production')  ? process.env.REACT_APP_PRODUCTION_URL + '/callback' : process.env.REACT_APP_DEVELOPMENT_URL + '/callback';
 const SCOPE = process.env.REACT_APP_AUTH_SCOPE;
 const AUDIENCE = process.env.REACT_APP_AUTH_AUDIENE;
 

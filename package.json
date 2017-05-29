@@ -28,6 +28,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "deploy": "REACT_APP_ENVIRONMENT=production npm run build && aws s3 sync build/ s3://mbot-frontend"
   }
 }
