@@ -54,6 +54,9 @@ class ChartViewer extends Component {
     }
 
     render() {
+
+        console.log("Rendering chart " . this.state.pair);
+
         let periods = this.state.periods;
         let trades = this.state.trades;
 

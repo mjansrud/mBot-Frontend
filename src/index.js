@@ -9,6 +9,13 @@ import About from './pages/About';
 import { Router, Route, browserHistory } from 'react-router';
 import { requireAuth } from './utils/AuthService';
 
+/*
+
+ mBot frontend server
+ Written by Morten Jansrud
+
+ */
+
 const Root = () => {
 
     return (
