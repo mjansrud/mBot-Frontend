@@ -29,7 +29,7 @@ const Root = () => {
                 <Route path="/callback" component={Callback} />
             </Router>
         </div>
-    )
+    ) 
 
 }
 
