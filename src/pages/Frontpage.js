@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from "react-bootstrap";
-import Nav from './components/parts/Nav';
+import Nav from './components/parts/Navigation';
 import Footer from './components/parts/Footer';
 import '../assets/css/app.css';
 import '../assets/css/frontpage.css';

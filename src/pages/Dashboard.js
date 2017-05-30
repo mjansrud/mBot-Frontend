@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from "react-bootstrap";
-import Nav from './components/parts/Nav';
+import Navigation from './components/parts/Navigation';
 import Footer from './components/parts/Footer';
 import ChartPairs from './components/tables/Pairs'
 import Trades from './components/tables/Trades'
@@ -35,7 +35,7 @@ class Dashboard extends Component {
 
         return (
             <div className="page">
-                <Nav />
+                <Navigation />
                 <Header title={pair} />
                 <Grid className="grid" fluid={fluid}>
                     <Row className="show-grid">

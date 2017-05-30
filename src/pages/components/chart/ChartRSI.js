@@ -49,7 +49,7 @@ class ChartRSI extends React.Component {
 
         return (
             <ChartCanvas ratio={ratio} width={width} height={300}
-                         margin={{left: 70, right: 70, top:20, bottom: 30}} type={type}
+                         margin={{ left: 70, right: 70, top: 70, bottom: 70 }} type={type}
                          seriesName="MSFT"
                          zoomEvent={false}
                          panEvent={false}

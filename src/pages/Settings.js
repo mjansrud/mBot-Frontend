@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import Nav from './components/parts/Nav';
+import Nav from './components/parts/Navigation';
 import Footer from './components/parts/Footer';
 import Header from './components/parts/Header';
 

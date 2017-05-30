@@ -30,7 +30,6 @@ class PairsTab extends Component {
 
         Object.keys(row).map((key, value) => {
             let object = [];
-            var name =
             object["name"] = key.charAt(0).toUpperCase() + key.slice(1);
             object["value"] = row[key];
             expandData.push(object)
