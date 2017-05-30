@@ -17,8 +17,12 @@ body {
     margin-right: 0px !important
 }
 
+a {
+    color: #848484;
+}
+
 .log {
-    margin: -7px -20px 0 0;
+    margin: -8px -20px 0 0;
 }
 
 .powered{

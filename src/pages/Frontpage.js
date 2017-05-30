@@ -32,11 +32,16 @@ class Frontpage extends Component {
                                 </div>
                                 <hr/>
                                 <p>
-                                    Fully automate your strategies through mBot running 24/7.
-                                    You have to login to be able to create bots which can trade.
+                                    Fully automate your strategies through mBot. mBot is a crypto-currency trading bot
+                                    which creates unique instances for every user that can be configured to trade 24/7 based
+                                    on advanced parameters made simple.
                                 </p>
                                 <p>
-                                    Poloniex is the only exchange supported at the momen
+                                    mBots supports testing of your strategies by collecting historical trades and running a simulation.
+                                    The service is currenrly in development and is therefore free to use on your own risk.
+                                </p>
+                                <p>
+                                    Poloniex is the only supported exchange at the moment.
                                 </p>
                             </div>
                         </Col>
