@@ -7,9 +7,14 @@ var env = process.env.REACT_APP_ENVIRONMENT || 'development';
 //Constants
 const BASE_URL = (env === 'production') ? process.env.REACT_APP_PRODUCTION_URL_API : process.env.REACT_APP_DEVELOPMENT_URL_API;
 
-export {getTickerData, getChartData, getTradesData};
+export {getTickerData, getChartData, getTradesData, getBalancesData};
 
 //Functions
+function getBalancesData() {
+    const url = `${BASE_URL}/balances`;
+    return axios.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => response.data);
+}
+
 function getTickerData() {
     const url = `${BASE_URL}/ticker`;
     return axios.get(url, { headers: { Authorization: `Bearer ${getAccessToken()}` }}).then(response => response.data);

@@ -48,7 +48,7 @@ class ChartRSI extends React.Component {
             .accessor(d => d.atr14);
 
         return (
-            <ChartCanvas ratio={ratio} width={width} height={300}
+            <ChartCanvas ratio={ratio} width={width} height={315}
                          margin={{ left: 70, right: 70, top: 70, bottom: 70 }} type={type}
                          seriesName="MSFT"
                          zoomEvent={false}

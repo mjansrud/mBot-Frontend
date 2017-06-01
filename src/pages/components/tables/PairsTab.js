@@ -4,7 +4,6 @@ import 'moment/locale/nb';
 
 class PairsTab extends Component {
 
-
     constructor() {
         super()
 

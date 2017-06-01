@@ -96,7 +96,7 @@ class ChartMACD extends React.Component {
 
 
         return (
-            <ChartCanvas ratio={ratio} width={width} height={600}
+            <ChartCanvas ratio={ratio} width={width} height={700}
                          margin={{ left: 70, right: 70, top: 70, bottom: 70 }} type={type}
                          seriesName="MSFT"
                          zoomEvent={false}
@@ -138,7 +138,7 @@ class ChartMACD extends React.Component {
                 </Chart>
                 <Chart id={3} height={150}
                        yExtents={[d => d.volume, smaVolume50.accessor()]}
-                       origin={(w, h) => [0, h - 150]}>
+                       origin={(w, h) => [0, h - 310]}>
                     <YAxis axisAt="left" orient="left" ticks={5} tickFormat={format(".0s")}/>
 
                     <MouseCoordinateY

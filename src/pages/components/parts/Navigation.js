@@ -11,7 +11,7 @@ class Navigation extends Component {
         <Navbar fluid collapseOnSelect>
             <Navbar.Header>
                 <Navbar.Brand>
-                    <a href="/">mBot</a>
+                    <Link to="/">mBot</Link>
                 </Navbar.Brand>
                 <Navbar.Toggle />
             </Navbar.Header>

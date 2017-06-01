@@ -5,6 +5,7 @@ import Footer from './components/parts/Footer';
 import ChartPairs from './components/tables/Pairs'
 import Trades from './components/tables/Trades'
 import Bots from './components/tables/Bots'
+import Balances from './components/tables/Balances'
 import ChartViewer from "./components/chart/ChartViewer";
 import Header from "./components/parts/Header";
 import '../assets/css/app.css';
@@ -45,7 +46,8 @@ class Dashboard extends Component {
                         </Col>
                         <Col sm={4} md={4}>
                             <ChartPairs pair={pair} onClick={this.changeHandler}/>
-                            <Bots pair={pair} onClick={this.changeHandler}/>
+                            <Balances/>
+                            <Bots pair={pair}/>
                         </Col>
                     </Row>
                 </Grid>

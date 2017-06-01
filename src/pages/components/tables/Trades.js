@@ -55,7 +55,7 @@ class Trades extends Component {
                     var tradeAll = tradesCollection[i][1][j];
                     tradeAll.pair = tradesCollection[i][0];
                     tradeAll.date = new Date(tradesCollection[i][1][j].date);
-                    tradeAll.time_readable = moment(tradesCollection[i][1][j].date).fromNow();
+                    tradeAll.time_readable = moment(tradesCollection[i][1][j].date).format('DD/MM HH:mm');
                     tradeAll.rate = parseFloat(tradesCollection[i][1][j].rate).toFixed(2);
                     tradeAll.amount = parseFloat(tradesCollection[i][1][j].amount).toFixed(5);
                     tradeAll.type = tradeAll.type;
@@ -66,7 +66,7 @@ class Trades extends Component {
                 var tradePair = tradesCollection[i][1];
                 tradePair.pair = this.state.pair;
                 tradePair.date = new Date(tradePair.date);
-                tradePair.time_readable = moment(tradePair.date).fromNow();
+                tradePair.time_readable = moment(tradePair.date).format('DD/MM HH:mm');
                 tradePair.rate = parseFloat(tradePair.rate).toFixed(2);
                 tradePair.amount = parseFloat(tradePair.amount).toFixed(5);
                 tradePair.trade = tradesList;
