@@ -31,7 +31,7 @@ class Navigation extends Component {
                     }
                 </Nav>
                 <Nav pullRight>
-                    <NavItem eventKey={1}><Link to="/disclaimer">Disclaimer</Link></NavItem>
+                    <NavItem eventKey={1}><Link to="/disclaimer">Disclaimer 2</Link></NavItem>
                     <NavItem eventKey={2}><Link to="/about">about</Link></NavItem>
                     <NavItem eventKey={3} >
                         {
